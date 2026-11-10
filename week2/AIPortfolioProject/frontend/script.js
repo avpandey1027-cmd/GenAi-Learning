@@ -1,7 +1,7 @@
 // ===================== CONFIGURATION =====================
 // Keep your FastAPI server running at this address.
 // If you deploy the backend, replace this with your deployed API URL.
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "https://abhinavportfolio-ai-backend.onrender.com";
 const CHAT_ENDPOINT = `${API_BASE_URL}/chat`;
 const RESUME_ENDPOINT = `${API_BASE_URL}/resume/download`;
 const STORAGE_KEY = "abhinav_resume_assistant_chats_v1";

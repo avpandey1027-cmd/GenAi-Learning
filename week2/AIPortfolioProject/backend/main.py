@@ -23,8 +23,7 @@ app=FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://abhinav-ai-portfolio-three.vercel.app",
-        "http://localhost:5500"
+        "https://abhinav-ai-portfolio-three.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],

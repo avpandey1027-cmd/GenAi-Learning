@@ -18,16 +18,20 @@ client = Groq(
 
 model = "openai/gpt-oss-120b"
 
-app=FastAPI()
+app = FastAPI()
+
+BASE_DIR = Path(__file__).resolve().parent
+RESUME_PATH = Path(__file__).parent / "AbhinavPandey_Resume_19_sep_2026.pdf"
+
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://abhinav-ai-portfolio-three.vercel.app"
     ],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 # parser resume
@@ -161,12 +165,16 @@ def parse_resume(resume_text):
 
 
 # pdf extraction
-def read_pdf(file_path: path):
-    reader = PdfReader(file_path)
+def read_pdf(file_path: Path):
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"Resume PDF not found: {file_path}"
+        )
+
+    reader = PdfReader(str(file_path))
     text = ""
 
     for page in reader.pages:
-
         page_text = page.extract_text()
 
         if page_text:
@@ -176,7 +184,7 @@ def read_pdf(file_path: path):
 
 @app.get("/")
 def home():
-    resume_text = read_pdf(Path("AbhinavPandey_Resume_19_sep_2026.pdf"))
+    resume_text = read_pdf(RESUME_PATH)
     resume = parse_resume(resume_text)
     print(resume_text)
     print(resume)
@@ -186,14 +194,28 @@ def home():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-    resume_text = read_pdf(Path("AbhinavPandey_Resume_19_sep_2026.pdf"))
-    resume = parse_resume(resume_text)
-    answer = ask_candidate(request.question,resume)
-    return {
-        "answer" : answer
-    }
 
-RESUME_PATH = Path(__file__).parent / "AbhinavPandey_Resume_19_sep_2026.pdf"
+    try:
+        resume_text = read_pdf(RESUME_PATH)
+
+        resume = parse_resume(resume_text)
+
+        answer = ask_candidate(
+            request.question,
+            resume
+        )
+
+        return {
+            "answer": answer
+        }
+
+    except Exception as e:
+        print("CHAT ERROR:", repr(e))
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
 
 @app.get("/resume/download")
 def download_resume():
@@ -201,11 +223,18 @@ def download_resume():
     if not RESUME_PATH.exists():
         raise HTTPException(
             status_code=404,
-            detail="Resume not found"
+            detail="Resume PDF not found"
         )
 
     return FileResponse(
-        path=RESUME_PATH,
+        path=str(RESUME_PATH),
         filename="Abhinav_Pandey_Resume.pdf",
         media_type="application/pdf"
     )
+
+@app.get("/health")
+def health():
+    return {
+        "status": "ok",
+        "message": "Abhinav AI backend is running"
+    }

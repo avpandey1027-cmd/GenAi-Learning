@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d0a" />
+  <meta name="description" content="AI-powered resume assistant for Abhinav Pandey." />
+  <title>Abhinav Pandey | AI Resume Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">✳</div>
+        <div>
+          <div class="brand-name">ABHINAV<span>.AI</span></div>
+          <div class="brand-subtitle">RESUME ASSISTANT</div>
+        </div>
+        <button class="icon-button close-sidebar" id="closeSidebar" aria-label="Close menu">×</button>
+      </div>
+
+      <button class="new-chat-button" id="newChatButton">
+        <span>＋</span> New chat <kbd>Ctrl K</kbd>
+      </button>
+
+      <div class="sidebar-section-label"><span>WORKSPACE</span><i class="online-dot"></i></div>
+      <button class="nav-link active" id="askNav"><span>◉</span> Ask anything</button>
+      <button class="nav-link" id="downloadNav"><span>⇩</span> Download resume</button>
+
+      <div class="history-heading">
+        <span>RECENT CHATS</span>
+        <button class="icon-button" id="toggleHistory" aria-label="Toggle chat history">⌄</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <p class="history-empty">Your conversations will appear here.</p>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="profile">
+          <div class="avatar">AP</div>
+          <div class="profile-info">
+            <strong>Abhinav Pandey</strong>
+            <span>Software Developer</span>
+          </div>
+          <i class="online-dot"></i>
+        </div>
+        <div class="privacy-note">⌑ &nbsp;Answers grounded in the uploaded resume</div>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button menu-button" id="openSidebar" aria-label="Open menu">☰</button>
+          <div class="breadcrumb">Workspace <span>/</span> <strong>AI Resume Assistant</strong></div>
+        </div>
+        <div class="topbar-actions">
+          <div class="theme-picker" id="themePicker" role="group" aria-label="Accent colour">
+            <button class="swatch active" data-theme="emerald" style="--c:#8cf49a" title="Emerald"
+              aria-label="Emerald theme"></button>
+            <button class="swatch" data-theme="ocean" style="--c:#6cc8ff" title="Ocean"
+              aria-label="Ocean theme"></button>
+            <button class="swatch" data-theme="violet" style="--c:#b794ff" title="Violet"
+              aria-label="Violet theme"></button>
+            <button class="swatch" data-theme="rose" style="--c:#ff8fb8" title="Rose" aria-label="Rose theme"></button>
+            <button class="swatch" data-theme="amber" style="--c:#ffc766" title="Amber"
+              aria-label="Amber theme"></button>
+          </div>
+          <div class="status-pill"><i class="online-dot"></i> AI assistant</div>
+          <button class="download-button" id="downloadTop">⇩ <span>Download resume</span></button>
+        </div>
+      </header>
+
+      <section class="page-content" id="pageContent">
+        <section class="welcome-screen" id="welcomeScreen">
+          <div class="eyebrow"><span></span> YOUR AI-POWERED CANDIDATE PROFILE</div>
+          <div class="hero-row">
+            <h1>Meet <span>Abhinav.</span><br>Ask me anything.</h1>
+            <div class="hero-art" aria-hidden="true">
+              <div class="hero-orbit orbit-a"></div>
+              <div class="hero-orbit orbit-b"></div>
+              <div class="hero-bot">✳</div>
+              <b class="spark spark-a">✦</b><b class="spark spark-b">·</b>
+            </div>
+          </div>
+          <p class="hero-description">
+            I'm Abhinav's AI resume assistant. Ask me about his background, projects,
+            technical skills, education, and what he can bring to your team.
+          </p>
+
+          <div class="stat-grid">
+            <div class="stat-card"><span class="stat-icon">⌘</span>
+              <div><strong>Java & Backend</strong><small>Core focus</small></div>
+            </div>
+            <div class="stat-card"><span class="stat-icon">▣</span>
+              <div><strong>Project-driven</strong><small>Practical experience</small></div>
+            </div>
+            <div class="stat-card"><span class="stat-icon">✧</span>
+              <div><strong>AI-curious</strong><small>Learning & building</small></div>
+            </div>
+          </div>
+
+          <div class="section-heading">
+            <div><span class="section-eyebrow">GET TO KNOW THE CANDIDATE</span>
+              <h2>Explore Abhinav's profile</h2>
+            </div>
+            <span class="prompt-count">05 PROMPTS</span>
+          </div>
+          <div class="prompt-grid" id="promptGrid">
+            <button class="prompt-card" data-prompt="Tell me about Abhinav."><span
+                class="prompt-icon">♙</span><span>Tell me about Abhinav</span><b>↗</b><small>01</small></button>
+            <button class="prompt-card"
+              data-prompt="What are Abhinav's core programming languages, frameworks, and AI skills?"><span
+                class="prompt-icon">⌘</span><span>Core technical skills</span><b>↗</b><small>02</small></button>
+            <button class="prompt-card" data-prompt="Can you explain Abhinav's work experience?"><span
+                class="prompt-icon">▤</span><span>Work experience</span><b>↗</b><small>03</small></button>
+            <button class="prompt-card" data-prompt="Tell me about Abhinav's education and projects."><span
+                class="prompt-icon">▱</span><span>Education & projects</span><b>↗</b><small>04</small></button>
+            <button class="prompt-card" data-prompt="Why should we hire Abhinav for this role?"><span
+                class="prompt-icon">✧</span><span>Why should we hire you?</span><b>↗</b><small>05</small></button>
+          </div>
+          <div class="accuracy-note">✧ &nbsp;Answers are generated from Abhinav's resume — no invented credentials or
+            experience.</div>
+        </section>
+
+        <section class="chat-screen hidden" id="chatScreen">
+          <div class="chat-heading">
+            <div><span class="section-eyebrow">CANDIDATE CONVERSATION</span>
+              <h1 id="chatTitle">New conversation</h1>
+            </div>
+            <button class="small-new-chat" id="newChatInline">＋ New chat</button>
+          </div>
+          <div class="messages" id="messages"></div>
+          <div class="error-message hidden" id="errorMessage"></div>
+          <button class="scroll-bottom hidden" id="scrollBottom" aria-label="Scroll to latest message">↓</button>
+          <div class="chips" id="chips"></div>
+          <div class="composer chat-composer">
+            <textarea id="chatInput" rows="1" placeholder="Ask a follow-up question…"></textarea>
+            <button class="send-button" id="sendButton" aria-label="Send message">↑</button>
+            <div class="composer-footer"><span>✧ Powered by Groq AI</span><span>Enter to send · Shift + Enter for new
+                line</span></div>
+          </div>
+        </section>
+      </section>
+
+      <div class="welcome-composer-wrap" id="welcomeComposerWrap">
+        <div class="error-message hidden" id="welcomeError"></div>
+        <div class="composer">
+          <textarea id="welcomeInput" rows="1"
+            placeholder="Ask about Abhinav's skills, projects, experience…"></textarea>
+          <button class="send-button" id="welcomeSend" aria-label="Send message">↑</button>
+          <div class="composer-footer"><span>✧ Powered by Groq AI</span><span>Enter to send · Shift + Enter for new
+              line</span></div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span>© 2026 Abhinav Pandey</span>
+        <span>Built with <b>FastAPI</b> · <b>Groq AI</b></span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
